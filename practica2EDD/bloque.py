@@ -104,6 +104,13 @@ class ListaE:
 		contador = 1
 		global index
 		global ph
+
+		global has1
+		global pre1
+		global tiempo1
+		global indice1
+		global info1
+		global name1
 		auxiliar = self.head
 		with open(leer)as file:
 			reader = csv.reader(file, delimiter=';')
@@ -122,6 +129,10 @@ class ListaE:
 			has = self.encrypt_string(suma)
 			self.convertir_json(clase,str(now.strftime("%d-%m-%Y::%H:%M:%S")),index,has,ph,data)
 			#self.add_first(clase, index, has, ph, data, now)
+			has1 = has
+			pre1 = ph
+			tiempo1 = str
+
 		else:
 			while auxiliar is not None:
 				if auxiliar == self.cola:
@@ -134,8 +145,8 @@ class ListaE:
 			now = datetime.now()
 			suma = str(str(index)+str(now.strftime("%d-%m-%Y::%H:%M:%S"))+clase+data+ph)
 			has = self.encrypt_string(suma)
-			self.convertir_json(clase,str(now.strftime("%d-%m-%Y::%H:%M:%S")),index,has,ph,data)
-			#self.add_first(clase, index, has, ph, data, now)
+			#self.convertir_json(clase,str(now.strftime("%d-%m-%Y::%H:%M:%S")),index,has,ph,data)
+			self.add_first(clase, index, has, ph, data, now)
 
 
 
@@ -151,33 +162,34 @@ class ListaE:
 		with open('archivo.json', 'w') as file:
 			json.dump(data,file)
 			cadena = json.dumps(data)
-		#print(cadena)
-		#return str(cadena)
-		#self.des(cadena)
 
 
 	def mostrar_carrusel(self):
-		temporal = self.head
-		if self.vacia()==True:
-			print("la lista esta vacia ")
-		else:
-			while temporal is not None:
-				os.system('cls')
-				eleccion = str(input("oprima un 4 para avanzar a la izquieda y un  6 para avanzar a la derecha"))
-				if eleccion == "6":
-					print("INDEX: "+str(temporal.index))
-					print("TIMESTAMP: "+ str(temporal.timestamp))
-					print("DATA: "+ str(temporal.data))
-					print("PREVIOUSHASH:" +str(temporal.previos_hash))
-					print("HASH: "+str(temporal.hash))
-					temporal = temporal.next
-				elif eleccion == "4":
-					print("INDEX: "+str(temporal.index))
-					print("TIMESTAMP: "+ str(temporal.timestamp))
-					print("DATA: "+ str(temporal.data))
-					print("PREVIOUSHASH:" +str(temporal.previos_hash))
-					print("HASH: "+str(temporal.hash))
-					temporal = temporal.previous
+		auxiliar = self.cola
+		terminar=True
+		while terminar ==True:
+			condicion = int(input("adelante"))
+			if condicion is 1:
+				print("INDEX:"+str(auxiliar.index)+"\n"+"TIMESTAMP:"+str(auxiliar.timestamp)+"\n"+"CLASE:"+str(auxiliar.clase)
+					+"\n"+"DATA"+str(auxiliar.data)+"\n"+"PREVIOUSHASH:"+str(auxiliar.previos_hash)+"\n"
+					+"HASH:"+str(auxiliar.hash))
+				auxiliar = auxiliar.previous
+				if auxiliar == None:
+					auxiliar = self.head
+			elif condicion is 2:
+				if auxiliar == None:
+					auxiliar = self.head
+					print("INDEX:"+str(auxiliar.index)+"\n"+"TIMESTAMP:"+str(auxiliar.timestamp)+"\n"+"CLASE:"+str(auxiliar.clase)
+					+"\n"+"DATA"+str(auxiliar.data)+"\n"+"PREVIOUSHASH:"+str(auxiliar.previos_hash)+"\n"
+					+"HASH:"+str(auxiliar.hash))
+				else:
+					auxiliar = auxiliar.next
+					print("INDEX:"+str(auxiliar.index)+"\n"+"TIMESTAMP:"+str(auxiliar.timestamp)+"\n"+"CLASE:"+str(auxiliar.clase)
+					+"\n"+"DATA"+str(auxiliar.data)+"\n"+"PREVIOUSHASH:"+str(auxiliar.previos_hash)+"\n"
+					+"HASH:"+str(auxiliar.hash))
+			elif condicion is 3:
+				terminar = False
+                
 
 	def des(self, cadenita):
 		d = json.loads(cadenita)

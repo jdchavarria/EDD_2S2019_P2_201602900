@@ -26,7 +26,7 @@ while True:
 			msj = message.decode('utf-8')
 			print(message.decode('utf-8'))
 			if msj == "true":
-				#bloque.lista.add_first(indice, has, pre, info, tiempo) #INSERTO EL BLOQUE CON LOS DATOS DEL JSON
+				bloque.lista.add_first(bloque.name1, bloque.indice1, bloque.has1, bloque.pre1, bloque.info1, bloque.tiempo1) #INSERTO EL BLOQUE CON LOS DATOS DEL JSON
 				print("recibido true ")
 			elif msj == "false":
 				print("bloque denegado")
